@@ -1,0 +1,126 @@
+.buttonBlock {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 75px;
+  min-height: 50px;
+  padding: 15px;
+
+}
+
+.mbx07a99242--ResultsAttribution{
+  display: none !important;
+}
+.chooseButton {
+  min-width: 200px;
+  max-width: 500px;
+  padding: 10px;
+  margin: 15px;
+  font-size: 22px;
+  min-height: 75px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+}
+
+.formArea {
+  min-height: 400px;
+}
+
+.RSPBprogressBar{
+  background-color: #1d2537 !important;
+  border-radius: 10px !important;
+}
+
+.buttonBlockRow {
+
+  display:block;
+  max-width: 700px;
+  margin: 0 auto;
+
+}
+
+.buttonBlockGrid {
+
+  
+  max-width: 700px;
+  margin: 0 auto;
+
+}
+
+
+.dateButton {
+
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  margin: 10px;
+  font-size: 18px;
+  min-width: 65px;
+  cursor: pointer;
+  text-align: center;
+}
+.monthButton {
+  min-width: 200px;
+  max-width: 300px;
+  padding: 15px;
+  margin: 10px;
+  font-size: 22px;
+  min-height: 75px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+
+}
+
+.numberFont {
+  font-family: ThiccBoiThiccAF, 'sans-serif';
+}
+
+.zipInput {
+  height: 75px;
+  background-color: #f5f9ff;
+  padding: 5px;
+  color: rgb(59 130 246 / var(--tw-border-opacity));
+  font-size: large;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+
+
+}
+.lottie{
+  height: 60vh;
+  width: auto;
+  margin: 0 auto;
+
+}
+
+
+
+.react-mapbox-ac-menu {
+  width: auto;
+  position: absolute;
+  z-index: 9999;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-top: -1.3rem;
+}
+
+.react-mapbox-ac-input {
+  margin-bottom: 1.5rem;
+}
+
+.react-mapbox-ac-suggestion {
+  font-size: 18px;
+  margin-bottom: .5rem;
+  cursor: pointer;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.react-mapbox-ac-suggestion:hover {
+  background-color: #58a;
+}
