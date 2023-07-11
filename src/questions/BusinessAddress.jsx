@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "../styles/forms.css";
 import Banner from "../components/ProgressBar";
 import { useNavigate } from "react-router-dom";
 import CTA from "../components/CTA";
@@ -67,28 +66,24 @@ function BusinessAddress() {
       if (sameAddress === true) {
         businessAddress(street, city, state, zipcode);
         truckAddress(street, city, state, zipcode);
-        //TODO: Naviagat to nextStep 
+        navigate('/current-insurance')
       }
       else {
         businessAddress(street, city, state, zipcode);
-        //TODO: navigate to next address
+        navigate('/trucking-address')
         
       }
-   
-    // navigate('/name')
-    }
-
-    
+    }   
   }
 
   return (
-    <div className="bg-dark-purple pb-10">
+    <div className="pb-10 bg-dark-purple">
       <Banner setProgress={80} />
 
-      <div className="formArea flex items-center justify-top mt-20 py-5 px-4 sm:px-6 lg:px-4 flex-col">
-        <div className="m-w-1/2 space-y-8">
+      <div className="flex flex-col items-center px-4 py-5 mt-20 formArea justify-top sm:px-6 lg:px-4">
+        <div className="space-y-8 m-w-1/2">
           <div>
-            <h2 className="mt-4 text-center text-4xl font-extrabold text-white">
+            <h2 className="mt-4 text-4xl font-extrabold text-center text-white">
               What is your current{" "}
               <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 xl:inline">
                 Business Address
@@ -130,7 +125,7 @@ function BusinessAddress() {
               
             >
               <input
-                className="appearance-none p-3  text-lg font-semibold leading-none bg-input-purple rounded text-white h-16 w-full text-center"
+                className="w-full h-16 p-3 text-lg font-semibold leading-none text-center text-white rounded appearance-none bg-input-purple"
                 id="street"
                 name="street"
                 type="text"
@@ -147,7 +142,7 @@ function BusinessAddress() {
               />
                </AddressAutofill>
                <input
-                className="appearance-none p-3 mt-5  text-lg font-semibold leading-none bg-input-purple rounded text-white h-16 w-full text-center"
+                className="w-full h-16 p-3 mt-5 text-lg font-semibold leading-none text-center text-white rounded appearance-none bg-input-purple"
                 id="secondary"
                 name="secondary"
                 type="text"
@@ -161,7 +156,7 @@ function BusinessAddress() {
                 <div className="grid grid-cols-3 gap-4">
                   <div>
                   <input
-                className="appearance-none p-3 mt-5  text-lg font-semibold leading-none bg-input-purple rounded text-gray-500 h-16 w-full text-center"
+                className="w-full h-16 p-3 mt-5 text-lg font-semibold leading-none text-center text-gray-500 rounded appearance-none bg-input-purple"
                 id="city"
                 name="city"
                     type="text"
@@ -177,7 +172,7 @@ function BusinessAddress() {
                   </div>
                   <div>
                   <input
-                className="appearance-none p-3 mt-5  text-lg font-semibold leading-none bg-input-purple rounded text-gray-500 h-16 w-full text-center"
+                className="w-full h-16 p-3 mt-5 text-lg font-semibold leading-none text-center text-gray-500 rounded appearance-none bg-input-purple"
                 id="state"
                 name="state"
                 type="text"
@@ -193,7 +188,7 @@ defaultValue={st}
 
                   <div>
                   <input
-                className="appearance-none p-3 mt-5  text-lg font-semibold leading-none bg-input-purple rounded text-gray-500 h-16 w-full text-center"
+                className="w-full h-16 p-3 mt-5 text-lg font-semibold leading-none text-center text-gray-500 rounded appearance-none bg-input-purple"
                 id="zipcode"
                 name="zipcode"
                 type="text"
@@ -225,9 +220,9 @@ defaultValue={st}
               />
 
             </Switch>
-            <span className="text-white text-lg pl-5">My Vehicles {smallText} Parked At This Address </span>
+            <span className="pl-5 text-lg text-white">My Vehicles {smallText} Parked At This Address </span>
 
-            <div className=" leading-5 ">
+            <div className="leading-5 ">
               <button
                 type="submit"
                 disabled={isButtonDisabled}
@@ -243,7 +238,7 @@ defaultValue={st}
               </button>
             </div>
 
-            <LinkWithQuery to="/employees">Back</LinkWithQuery>
+            <LinkWithQuery to="/">Back</LinkWithQuery>
           </form>
         </div>
       </div>
