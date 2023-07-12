@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer  } from 'react-toastify';
@@ -9,14 +9,14 @@ import { ipAddress } from './apis/ipCollection';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import ContinueFormModal from './components/ContinueFormModal';
-
+import { loadUserDataFromLocalStorage } from './data/addToUserData';
 import LandingPage from './pages/LandingPage';
 import BusinessAddress from './questions/BusinessAddress';
 import TruckingAddres from './questions/TruckingAddress';
 import CurrentInsurance from './questions/CurrentInsurance';
 import PolicyStartDate from './questions/PolicyStartDate';
 import DOTNumber from './questions/DOTNumber';
-import { useState } from 'react';
+import BusinessDuration from './questions/BusinessDuration';
 
 const App = () => {
 
@@ -24,14 +24,19 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-
-    console.log(userData)
-
+    loadUserDataFromLocalStorage();
+  
     const formCompleted = localStorage.getItem('formCompleted');
     if (formCompleted === 'true') {
       localStorage.removeItem('formCompleted');
     }
-  }, [])
+  
+    // Check if userData is not empty
+    if (Object.keys(userData).length !== 0) {
+      setShowModal(true);
+    }
+  }, [setShowModal]);
+  
 
   return (
     <div>
@@ -45,10 +50,13 @@ const App = () => {
         <Route path='/current-insurance' element={<CurrentInsurance />} />
         <Route path='/policy-start' element={<PolicyStartDate />} />
         <Route path='/dot-number' element={<DOTNumber />} />
+        <Route path='/business-duration' element={<BusinessDuration />} />
+
     </Routes>
 
       <Footer />
-      {showModal && <ContinueFormModal />}
+
+      {showModal && <ContinueFormModal showModal={showModal} setShowModal={setShowModal} />}
   </div>
   )
 }

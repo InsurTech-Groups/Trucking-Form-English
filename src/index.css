@@ -1,8 +1,9 @@
 @import url('./styles/font.css');
+@import url('./styles/forms.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('./styles/forms.css');
 
 body {
     margin: 0;
