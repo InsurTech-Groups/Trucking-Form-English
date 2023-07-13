@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Router } from 'react-router-dom';
 import { ToastContainer  } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { userData } from './data/userData';
@@ -17,6 +17,12 @@ import CurrentInsurance from './questions/CurrentInsurance';
 import PolicyStartDate from './questions/PolicyStartDate';
 import DOTNumber from './questions/DOTNumber';
 import BusinessDuration from './questions/BusinessDuration';
+import TrucksTrailers from './questions/TrucksTrailers';
+import BusinessName from './questions/BusinessName';
+import BusinessType from './questions/BusinessType';
+import BusinessContact from './questions/BusinessContact';
+import Submit from './pages/Submit';
+import ThankYou from './pages/ThankYou';
 
 const App = () => {
 
@@ -51,6 +57,12 @@ const App = () => {
         <Route path='/policy-start' element={<PolicyStartDate />} />
         <Route path='/dot-number' element={<DOTNumber />} />
         <Route path='/business-duration' element={<BusinessDuration />} />
+        <Route path='/trucks-trailers' element={<TrucksTrailers />} />
+        <Route path='/business-name' element={<BusinessName />} />
+        <Route path='/business-type' element={<BusinessType />} />
+        <Route path='/contact' element={<BusinessContact />} />
+        <Route path='/submit' element={<Submit />} />
+        <Route path='/thank-you' element={<ThankYou />} />
 
     </Routes>
 

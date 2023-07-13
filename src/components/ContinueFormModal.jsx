@@ -4,7 +4,8 @@ import '../styles/forms.css'
 import { userData } from '../data/userData';
 import Lottie from "lottie-react";
 import welcomeBack from '../assets/welcomeBack.json'
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
+
 
 Modal.setAppElement('#root');
 
@@ -13,16 +14,27 @@ export default function ContinueFormModal({ showModal, setShowModal }) {
 
   const navigate = useNavigate();
   const urlLeftOn = userData.url;
-
+  const location = useLocation();
+    
   useEffect(() => {
     if (Object.keys(userData).length !== 0) {
       setShowModal(true);
     }
-  }, []);
+
+    if (location.pathname === '/submit' || location.pathname === '/thank-you') {
+      setShowModal(false);
+    }
+    
+  }, [location]);
 
   const closeModal = () => {
     setShowModal(false);
+    //clear local storage 
+    localStorage.clear();
+    navigate('/');
   };
+
+
 
   return (
     <Modal

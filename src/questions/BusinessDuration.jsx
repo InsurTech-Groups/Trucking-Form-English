@@ -12,30 +12,36 @@ export default function BusinessDuration() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [date, setDate] = useState("");
 
-  let d = userData.start;
+  let d = userData.startDate;
 
   useEffect(() => {
     if (d !== "") {
+      setDate(d);
       setIsButtonDisabled(false);
     }
-    else {
-      setIsButtonDisabled(false);
-    }
-  });
-  
-  const handleSumbit = (e) => {
+  }, [d]);
 
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (isNaN(date) || date.length !== 4) {
+    const yearRegex = /^\d{4}$/;
+
+    if (!yearRegex.test(date)) {
       toast.error("Please enter a valid year");
       setIsButtonDisabled(true);
+      return;
     }
 
-  }
+    const year = Number(date);
+    if (isNaN(year)) {
+      toast.error("Please enter a valid year");
+      setIsButtonDisabled(true);
+      return;
+    }
 
-
-
+    startDate(year);
+    navigate("/trucks-trailers");
+  };
 
   return (
     <div className="pb-10 bg-dark-purple">
@@ -47,7 +53,7 @@ export default function BusinessDuration() {
             <h2 className="mt-4 text-4xl font-extrabold text-center text-white">
               What{" "}
               <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 xl:inline">
-               Year{" "}
+                Year{" "}
               </span>
               Did You Start Your Business?
             </h2>
@@ -57,24 +63,23 @@ export default function BusinessDuration() {
               <div className="justify-center w-full">
                 <div>
                   <div className="flex mt-2 rounded-md shadow-sm">
-  
-                  <input
-                          type="text"
-                  name="businessStart"
+                    <input
+                      type="text"
+                      name="businessStart"
                       pattern="\d*"
                       maxLength="4"
                       minLength="4"
-                          id="businessStart"
+                      id="businessStart"
                       placeholder="YYYY"
-                      defaultValue={d}
+                      value={date}
                       onChange={(e) => {
                         setIsButtonDisabled(false);
                         setDate(e.target.value);
-                          }}
-                  required
-                          className="w-full appearance-none mb-5 lg:text-xl text-center bg-input-purple text-white text-md rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-5 p-2.5"
-                    
-                 
+                        toast.clearWaitingQueue();
+                        toast.dismiss();
+                      }}
+                      required
+                      className="w-full appearance-none mb-5 lg:text-xl text-center bg-input-purple text-white text-md rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-5 p-2.5"
                     />
                   </div>
                 </div>
@@ -82,14 +87,16 @@ export default function BusinessDuration() {
               <button
                 type="submit"
                 disabled={isButtonDisabled}
-                className={`px-6 py-4 w-full mt-5 text-lg ${isButtonDisabled ? 'cursor-not-allowed disabled:opacity-75 bg-input-purple' : 'bg-pink-600'
-                  } hover:shadow-lg text-white rounded transition duration-200`}
+                className={`px-6 py-4 w-full mt-5 text-lg ${
+                  isButtonDisabled
+                    ? "cursor-not-allowed disabled:opacity-75 bg-input-purple"
+                    : "bg-pink-600"
+                } hover:shadow-lg text-white rounded transition duration-200`}
                 id="dotNumberButton"
-                onClick={handleSumbit}
+                onClick={handleSubmit}
               >
                 Next
               </button>
-          
             </div>
 
             <LinkWithQuery to="/dot-number">Back</LinkWithQuery>

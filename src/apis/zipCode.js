@@ -66,7 +66,6 @@ function ZipCode() {
 
       console.log('user ip', ip)
 
-      localStorage.setItem('ip', ip)
 
 
       setZipCodeValue(zip);
@@ -159,7 +158,7 @@ function ZipCode() {
 
       let url = document.getElementById('trusted_form_url_0').value;
 
-  
+      setIpValue('1234')
       landingPageData(id, zipCodeValue, cityValue, stateValue, ipValue, url)
       
       navigate('/business-address');
@@ -186,7 +185,7 @@ function ZipCode() {
             Enter Your Zip Code
           </label>
           <input
-            className="w-full p-3 text-lg font-semibold leading-none text-white rounded  text-light-purple bg-input-purple zipInput"
+            className="w-full p-3 text-lg font-semibold leading-none text-white rounded text-light-purple bg-input-purple zipInput"
             type="text"
             name="zipCode"
             placeholder="Zip Code"
@@ -212,7 +211,7 @@ function ZipCode() {
             Start My Quote
           </button>
         </div>
-        <p className='pt-2 pb-2 font-extrabold text-white text-md' id='location'>Savings Available In <span className='pl-2 pr-2 text-lg font-thin rounded-lg  bg-gradient-to-r from-purple-400 to-pink-600'>{cityValue}, {stateValue} </span></p>
+        <p className='pt-2 pb-2 font-extrabold text-white text-md' id='location'>Savings Available In <span className='pl-2 pr-2 text-lg font-thin rounded-lg bg-gradient-to-r from-purple-400 to-pink-600'>{cityValue}, {stateValue} </span></p>
 
         
 

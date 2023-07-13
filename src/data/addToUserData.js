@@ -95,6 +95,8 @@ export const startDate = (start) => {
         
   userData.startDate = start;
   console.log('userData', userData);
+  userData.url = window.location.pathname;
+
   saveUserDataToLocalStorage();
 
 }
@@ -103,6 +105,8 @@ export const numberOfTrucks = (number) => {
           
   userData.number_of_trucks = number;
   console.log('userData', userData);
+  userData.url = window.location.pathname;
+
   saveUserDataToLocalStorage();
 
 };
@@ -111,6 +115,8 @@ export const numberOfTrailers = (number) => {
 
   userData.number_of_trailers = number;
   console.log('userData', userData);
+  userData.url = window.location.pathname;
+
   saveUserDataToLocalStorage();
 
 };
@@ -119,14 +125,18 @@ export const haulingStuff = (stuff) => {
 
   userData.hauling_stuff = stuff;
   console.log('userData', userData);
+  userData.url = window.location.pathname;
+
   saveUserDataToLocalStorage();
 
 };
 
-export const businessName = (name) => {
+export const bName = (name) => {
 
   userData.business_name = name;
   console.log('userData', userData);
+  userData.url = window.location.pathname;
+
   saveUserDataToLocalStorage();
 
 };
@@ -135,24 +145,22 @@ export const businessType = (type) => {
 
   userData.business_type = type;
   console.log('userData', userData);
+  userData.url = window.location.pathname;
+
   saveUserDataToLocalStorage();
 
 };
 
-export const contactName = (firstName, lastName) => {
+
+export const contactInformation = (firstName, lastName, email, phone) => {
 
   userData.firstName = firstName;
   userData.lastName = lastName;
-  console.log('userData', userData);
-  saveUserDataToLocalStorage();
-
-};
-
-export const contactInformation = (email, phone) => {
-
   userData.email = email;
   userData.phone = phone;
   console.log('userData', userData);
+  userData.url = window.location.pathname;
+
   saveUserDataToLocalStorage();
 
 };
