@@ -1,9 +1,8 @@
-import {userData} from '../data/userData';
+import { userData } from '../data/userData';
 import { toast } from "react-toastify";
+import axios from "axios";
+
 export const postDataToRico = async () => {
-
-
-
   let zip_code = userData.zip_code;
   let city = userData.city;
   let state = userData.state;
@@ -28,56 +27,50 @@ export const postDataToRico = async () => {
   let email = userData.email;
   let phone = userData.phone;
 
-  let postUrl = 'https://leads.ricochet.me/api/v1/lead/create/GMAX-Trucking/?token=ea527c772f0fe84238e916ff02f32ae8&cid=Trucking-Form';
-
 
   let data = {
+    "company_name": business_name,
+    "firstName": firstName,
+    "lastName": lastName,
+    "email": email,
+    "phone": phone,
+    "address1": business_address,
+    "city": business_city,
+    "state": business_state,
+    "zip": business_zipcode,
+    "dotno": dot_number,
+    "business_description": business_type,
+    "business_name": business_name,
+    "years_in_business": startDate,
+    "legalname": business_name,
+    "address": truck_address,
+    "businesscity": truck_city,
+    "businessstate": truck_state,
+    "businesszip": truck_zipcode,
+    "totalnumtrucks": number_of_trucks,
+    "totalnumpowunits": number_of_trucks,
+    "totalnumtrailers": number_of_trailers,
+    "currentinsurance": current_insurance,
+    "policyStart": policy_start_date
+  };
+  
 
-    company_name: business_name,
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    phone: phone,
-    address1: business_address,
-    city: business_city,
-    state: business_state,
-    zip: business_zipcode,
-    dotno: dot_number,
-    business_description: business_type,
-    business_name: business_name,
-    years_in_business: startDate,
-    legalname: business_name,
-    address: truck_address,
-    businesscity: truck_city,
-    businessstate: truck_state,
-    businesszip: truck_zipcode,
-    totalnumtrucks: number_of_trucks,
-    totalnumpowunits: number_of_trucks,
-    totalnumtrailers: number_of_trailers, 
-    currentinsurance: current_insurance,
-    policyStart: policy_start_date
-
-  }
-
-  fetch(postUrl, {
+  fetch('https://postrico-39d4a622481c.herokuapp.com/accept-lead', {
     method: 'POST',
-    mode: 'no-cors',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   })
-    .then(res =>  res.json())
+    .then(res => res.json())
     .then(data => {
-
-      console.log('here is the data', data);
       console.log(data);
-      if (data.status === 'success') {
-        toast.success('Form submitted successfully');
-      }
-      
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+    }
+    );
+
 
 
 };
