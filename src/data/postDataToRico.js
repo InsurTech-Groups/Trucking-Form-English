@@ -55,22 +55,22 @@ export const postDataToRico = async () => {
   };
   
 
-  fetch('https://postrico-39d4a622481c.herokuapp.com/accept-lead', {
+  let url = 'https://leads.ricochet.me/api/v1/lead/create/GMAX-Trucking/?token=ea527c772f0fe84238e916ff02f32ae8&cid=Trucking-Form'
+  fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   })
-    .then(res => res.json())
+    .then(response => response.json())
     .then(data => {
-      console.log(data);
+      console.log('Success:', data);
+      toast.success("Data sent successfully!");
     })
-    .catch(err => {
-      console.log(err);
-    }
-    );
-
-
+    .catch((error) => {
+      console.error('Error:', error);
+      toast.error("Error sending data!");
+    });
 
 };
