@@ -53,20 +53,22 @@ export const postDataToRico = async () => {
     "currentinsurance": current_insurance,
     "policyStart": policy_start_date
   };
+
+  console.log('data', data);
   
 
   let url = 'https://leads.ricochet.me/api/v1/lead/create/GMAX-Trucking/?token=ea527c772f0fe84238e916ff02f32ae8&cid=Trucking-Form'
   fetch(url, {
     method: 'POST',
+    mode: 'no-cors',
+
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'mode': 'no-cors'
       
     },
     body: JSON.stringify(data),
   })
-    .then(response => response.json())
     .then(data => {
       console.log('Success:', data);
       toast.success("Data sent successfully!");

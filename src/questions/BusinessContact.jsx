@@ -7,6 +7,7 @@ import PhoneInput from "react-phone-number-input/input";
 import { toast } from "react-toastify";
 import { userData } from "../data/userData";
 import { postDataToRico } from "../data/postDataToRico";
+import { contactInformation } from "../data/addToUserData";
 
 export default function BusinessContact() {
   const navigate = useNavigate();
@@ -89,6 +90,7 @@ export default function BusinessContact() {
           console.log(data);
           if (data.valid) {
             setPhoneNumber(phone);
+            console.log('state change to phone:', phone);
             resolve(true);
           } else {
             setPhoneNumber("");
@@ -111,39 +113,52 @@ export default function BusinessContact() {
     setEmail(autoCorrectText);
     document.getElementById("email").value = autoCorrectText;
     setAutoCorrectText("");
-  }
-  const handleContact = async () => {
-    const isEmailValid = await validateEmail();
-  
-    console.log('isEmailValid', isEmailValid);
-  
-    if (!isEmailValid) {
-      return; // Stop if email validation failed
-    }
-  
-    // Perform phone number validation
-    const isPhoneNumberValid = await validatePhoneNumber();
-  
-    console.log('isPhoneNumberValid', isPhoneNumberValid);
-    if (!isPhoneNumberValid) {
-      return; // Stop if phone number validation failed
-    }
-  
-    if (firstName === "" || lastName === "" || phoneNumber === "" || email === "") {
-      toast.error("Please fill out all fields");
-      return;
-    }
-  
-    userData.first_name = firstName;
-    userData.last_name = lastName;
-    userData.phone_number = phoneNumber;
-    userData.email = email;
-  
-    postDataToRico();
-  
-    navigate('/submit');
   };
+  const handleContact = async () => {
+    try {
+      const isEmailValid = await validateEmail();
+      console.log('isEmailValid', isEmailValid);
+  
+      if (!isEmailValid) {
+        toast.error('Please enter a valid email address');
+        return; // Stop if email validation failed
+      }
+  
+      // Perform phone number validation
+      const isPhoneNumberValid = await validatePhoneNumber();
+      console.log('isPhoneNumberValid', isPhoneNumberValid);
+  
+      if (!isPhoneNumberValid) {
+        toast.error('Please enter a valid phone number');
+        return; // Stop if phone number validation failed
+      }
+  
+      // Now both email and phoneNumber are valid, continue with other logic
+      if (firstName === "" || lastName === "" || phoneNumber === "" || email === "") {
+        toast.error("Please fill out all fields");
+        return;
+      }
+      if (email === undefined || phoneNumber === undefined) {
+        toast.error("Please enter a valid email and phone number");
+        return;
+      }
+  
+      console.log('after function ran:', phoneNumber, email);
+  
+      contactInformation(firstName, lastName, email, phoneNumber);
+  
+      console.table(
+        `First Name: ${firstName} Last Name: ${lastName} Phone Number: ${phoneNumber} Email: ${email}`
+      );
 
+      console.log('pos to rico')
+      postDataToRico();
+  
+      navigate('/submit');
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
   return (
     <div className="pb-10 bg-dark-purple">
       <Banner setProgress={80} />
@@ -217,6 +232,7 @@ export default function BusinessContact() {
                 placeholder="Phone Number"
                 autoComplete="tel"
                 onChange={() => {
+                  
                 }}
                 required={true}
               />
