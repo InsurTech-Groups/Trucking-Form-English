@@ -70,7 +70,12 @@ export default function DOTNumber() {
                       onChange={handleInputChange}
                     />
                   </div>
+                 
                 </div>
+                <a onClick={() => {
+                    dotNumber('N/A');
+                    navigate("/business-duration");
+                  }} className='justify-center text-center text-white underline text-bold'> I do not have a DOT Number Yet</a>
               </div>
               <button
                 type="submit"
