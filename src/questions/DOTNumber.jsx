@@ -15,7 +15,12 @@ export default function DOTNumber() {
   useEffect(() => {
     const storedDotNumber = userData.dot_number;
     if (storedDotNumber) {
-      setDotNumberInput(storedDotNumber);
+      if (storedDotNumber === 'N/A') {
+        setDotNumberInput('');
+      }
+      else {
+        setDotNumberInput(storedDotNumber);
+      }
       setIsButtonDisabled(false);
     }
   }, []);
@@ -72,10 +77,10 @@ export default function DOTNumber() {
                   </div>
                  
                 </div>
-                <a onClick={() => {
+                <button onClick={() => {
                     dotNumber('N/A');
                     navigate("/business-duration");
-                  }} className='justify-center text-center text-white underline text-bold'> I do not have a DOT Number Yet</a>
+                  }} className='justify-center text-center text-white underline text-bold'> I do not have a DOT Number Yet</button>
               </div>
               <button
                 type="submit"

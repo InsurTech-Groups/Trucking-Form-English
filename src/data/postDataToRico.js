@@ -35,7 +35,7 @@ export const postDataToRico = async () => {
     "email": email,
     "phone": phone,
     "address1": business_address,
-    "city": business_city,
+    "city": business_city, 
     "state": business_state,
     "zip": business_zipcode,
     "dotno": dot_number,
