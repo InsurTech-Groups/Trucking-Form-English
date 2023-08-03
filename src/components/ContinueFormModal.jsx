@@ -29,8 +29,7 @@ export default function ContinueFormModal({ showModal, setShowModal }) {
 
   const closeModal = () => {
     setShowModal(false);
-    //clear local storage 
-    localStorage.clear();
+  
     navigate('/');
   };
 
