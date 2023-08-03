@@ -6,7 +6,8 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Bugsnag from '@bugsnag/browser';
 import { landingPageData } from '../data/addToUserData';
-
+import { v4 as uuidv4 } from 'uuid';
+import { supabase } from '../data/lib/supa';
 function ZipCode() {
 
 
@@ -15,37 +16,26 @@ function ZipCode() {
   const [cityValue, setCityValue] = useState('');
   const [stateValue, setStateValue] = useState('');
   const [ipValue, setIpValue] = useState('');
+  const [uuid, setUuid] = useState('');
 
- 
+
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
-
-
-
-    // let id = localStorage.getItem('userId');
-    // let final = localStorage.getItem('done')
-
-    // if (!id) {
-    //   localStorage.setItem('userId', uuidv4());
-
-    // }
-    // if (final === 'yes') {
-
-    //   toast.success('Thank you for your submission!');
-
-    //   navigate('/thank-you')
-    // }
-    
-  }, [])
+    let id = localStorage.getItem('uuid');
+    let userId = localStorage.getItem('userId');
   
-
-
-
-
+    if (!id && !userId) {
+      id = uuidv4();
+      localStorage.setItem('uuid', id);
+    }
+  
+    setUuid(id);
+    
+    // ... rest of your code ...
+  }, []);
   useEffect(() => {
+
 
     const apiKey = process.env.REACT_APP_IPAPI_KEY;
 
@@ -55,33 +45,33 @@ function ZipCode() {
       method: "GET",
       redirect: "follow",
       url: 'https://ipapi.co/json/?' + apiKey,
-    }
+    };
 
     $.ajax(req).done(function (res) {
 
       let zip = res.postal;
       let city = res.city;
       let state = res.region_code;
-      let ip = res.ip
+      let ip = res.ip;
 
-      console.log('user ip', ip)
+      console.log('user ip', ip);
 
 
 
       setZipCodeValue(zip);
       setCityValue(city);
-      setStateValue(state)
-      setIpValue(ip)
+      setStateValue(state);
+      setIpValue(ip);
 
-    
+
     })
       .catch((err) => {
         //Bugsnag.notify(err)
-      })
-
+      });
+    
+     
+     
   }, []);
-
-
 
 
 
@@ -118,60 +108,35 @@ function ZipCode() {
         .catch((err) => {
           toast.error("Invalid Zip Code");
           //Bugsnag.notify(err)
-        })
-      
+        });
+
     }
 
   }
-
-  function nextStep(e){
-
+  async function nextStep(e) {
     e.preventDefault();
-
     let id = localStorage.getItem('userId');
-
     let zip = zipCodeValue;
-
     zip = parseInt(zip);
 
-    if (isButtonDisabled) {
-      toast.error("Please enter a valid zip code!");
-      return
-    }
-    else if (isNaN(zip)) {
-      toast.error("Please enter a valid zip code!");
-      setIsButtonDisabled(true);
-      return
+    if (isButtonDisabled || isNaN(zip) || zipCodeValue.length < 5) {
+        toast.error("Please enter a valid zip code!");
+        setIsButtonDisabled(true);
+    } else {
+        let url = document.getElementById('trusted_form_url_0').value;
+      setIpValue('1234');
       
+      console.log('UUID before landingPageData:', uuid);
+
+        landingPageData(uuid, zipCodeValue, cityValue, stateValue, ipValue, url);
+        navigate('/business-address');
     }
-    else if(zipCodeValue.length < 5){
-      toast.error('Please enter a valid zip code!');
-      setIsButtonDisabled(true);
-      return
-    }
-    else { 
-
-      
-      //TODO: Add this data into userData.js
-      // initialFirebaseFormValues(id, zipCodeValue, cityValue, stateValue, ipValue);
+}
 
 
-      let url = document.getElementById('trusted_form_url_0').value;
-
-      setIpValue('1234')
-      landingPageData(id, zipCodeValue, cityValue, stateValue, ipValue, url)
-      
-      navigate('/business-address');
-    }
-
-  }
-
-  
 
 
-  
 
- 
 
 
   return (
@@ -190,7 +155,7 @@ function ZipCode() {
             name="zipCode"
             placeholder="Zip Code"
             pattern="\d*"
-                        id="zipCode"
+            id="zipCode"
             defaultValue={zipCodeValue}
             onChange={revalidateZipCode}
             minLength={5}
@@ -198,7 +163,7 @@ function ZipCode() {
             required
           />
 
-          
+
 
 
 
@@ -213,11 +178,11 @@ function ZipCode() {
         </div>
         <p className='pt-2 pb-2 font-extrabold text-white text-md' id='location'>Savings Available In <span className='pl-2 pr-2 text-lg font-thin rounded-lg bg-gradient-to-r from-purple-400 to-pink-600'>{cityValue}, {stateValue} </span></p>
 
-        
 
-        {}
+
+        { }
       </form>
     </div>
-  )
+  );
 }
 export default ZipCode;

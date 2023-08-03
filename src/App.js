@@ -5,7 +5,7 @@ import { ToastContainer  } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { userData } from './data/userData';
 
-import { ipAddress } from './apis/ipCollection';
+
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import ContinueFormModal from './components/ContinueFormModal';
@@ -30,6 +30,7 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+   
     loadUserDataFromLocalStorage();
   
     const formCompleted = localStorage.getItem('formCompleted');
@@ -41,9 +42,8 @@ const App = () => {
     if (Object.keys(userData).length !== 0) {
       setShowModal(true);
     }
-  }, [setShowModal]);
+  }, [setShowModal ]);
   
-
   return (
     <div>
     <NavBar />
