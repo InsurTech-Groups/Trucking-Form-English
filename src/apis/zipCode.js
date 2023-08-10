@@ -54,7 +54,7 @@ function ZipCode() {
       let state = res.region_code;
       let ip = res.ip;
 
-      console.log('user ip', ip);
+ 
 
 
 
@@ -126,7 +126,7 @@ function ZipCode() {
         let url = document.getElementById('trusted_form_url_0').value;
       setIpValue('1234');
       
-      console.log('UUID before landingPageData:', uuid);
+
 
         landingPageData(uuid, zipCodeValue, cityValue, stateValue, ipValue, url);
         navigate('/business-address');
