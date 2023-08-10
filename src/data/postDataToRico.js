@@ -29,53 +29,53 @@ export const postDataToRico = async () => {
 
 
   let data = {
-    "company_name": business_name,
-    "firstName": firstName,
-    "lastName": lastName,
-    "email": email,
-    "phone": phone,
-    "address1": business_address,
-    "city": business_city, 
-    "state": business_state,
-    "zip": business_zipcode,
-    "dotno": dot_number,
-    "business_description": business_type,
-    "business_name": business_name,
-    "years_in_business": startDate,
-    "legalname": business_name,
-    "address": truck_address,
-    "businesscity": truck_city,
-    "businessstate": truck_state,
-    "businesszip": truck_zipcode,
-    "totalnumtrucks": number_of_trucks,
-    "totalnumpowunits": number_of_trucks,
-    "totalnumtrailers": number_of_trailers,
-    "currentinsurance": current_insurance,
-    "policyStart": policy_start_date
+    company_name: business_name,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phone: phone,
+    address1: business_address,
+    city: business_city, 
+    state: business_state,
+    zip: business_zipcode,
+    dotno: dot_number,
+    business_description: business_type,
+    business_name: business_name,
+    years_in_business: startDate,
+    legalname: business_name,
+    address: truck_address,
+    businesscity: truck_city,
+    businessstate: truck_state,
+    businesszip: truck_zipcode,
+    totalnumtrucks: number_of_trucks,
+    totalnumpowunits: number_of_trucks,
+    totalnumtrailers: number_of_trailers,
+    currentinsurance: current_insurance,
+    policyStart: policy_start_date
   };
 
-  console.log('data', data);
+  console.log('posting this to rico', data);
   
 
   let url = 'https://leads.ricochet.me/api/v1/lead/create/GMAX-Trucking/?token=ea527c772f0fe84238e916ff02f32ae8&cid=Trucking-Form'
+
   fetch(url, {
     method: 'POST',
     mode: 'no-cors',
-
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json', 
       'Access-Control-Allow-Origin': '*',
-      
     },
     body: JSON.stringify(data),
   })
+    .then(response => response.json())
     .then(data => {
       console.log('Success:', data);
       toast.success("Data sent successfully!");
     })
     .catch((error) => {
       console.error('Error:', error);
-      toast.error("Error sending data!");
+      //toast.error("Error sending data!");
     });
 
 };
