@@ -59,6 +59,7 @@ export default function BusinessContact() {
             setEmail(email);
             resolve(true);
           } else {
+            console.log('validate email failed')
             setEmail("");
             toast.error("Please enter a valid email address");
             resolve(false);
@@ -77,22 +78,23 @@ export default function BusinessContact() {
 
   const validatePhoneNumber = () => {
     setIsLoading(true);
-    let phone = document.getElementById("phoneNumber").value;
+    let p = document.getElementById("phoneNumber").value;
 
-    phone = phone.replace(/[- )(]/g, '');
+    p = p.replace(/[- )(]/g, '');
   
     return new Promise((resolve, reject) => {
       fetch(
-        `https://phonevalidation.abstractapi.com/v1/?api_key=75f89b138e344044ab0f3cd7ef56af67&phone=1${phone}`
+        `https://phonevalidation.abstractapi.com/v1/?api_key=75f89b138e344044ab0f3cd7ef56af67&phone=1${p}`
       )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
           if (data.valid) {
-            setPhoneNumber(phone);
-            console.log('state change to phone:', phone);
+            setPhoneNumber(p);
+            console.log('state change to phone:', p);
             resolve(true);
           } else {
+            console.log('validate phone failed')
             setPhoneNumber("");
             toast.error("Please enter a valid phone number");
             resolve(false);
@@ -114,12 +116,15 @@ export default function BusinessContact() {
     document.getElementById("email").value = autoCorrectText;
     setAutoCorrectText("");
   };
+
+
   const handleContact = async () => {
     try {
       const isEmailValid = await validateEmail();
       console.log('isEmailValid', isEmailValid);
   
       if (!isEmailValid) {
+        console.log('email validation failed')
         toast.error('Please enter a valid email address');
         return; // Stop if email validation failed
       }
@@ -130,6 +135,7 @@ export default function BusinessContact() {
   
       if (!isPhoneNumberValid) {
         toast.error('Please enter a valid phone number');
+        console.log('phone number validation failed')
         return; // Stop if phone number validation failed
       }
   
@@ -138,7 +144,11 @@ export default function BusinessContact() {
         toast.error("Please fill out all fields");
         return;
       }
+
+      console.log('before function ran:', phoneNumber, email)
+
       if (email === undefined || phoneNumber === undefined) {
+        console.log('its undefined')
         toast.error("Please enter a valid email and phone number");
         return;
       }
@@ -219,6 +229,9 @@ export default function BusinessContact() {
                 placeholder="Email Address"
                 autoComplete="email"  
                 required={true}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
               {autoCorrectText ? <p className="pt-4 text-center text-white underline text-md" onClick={changeEmailInput}> Did you mean: {autoCorrectText}?</p> : null}
 
@@ -232,7 +245,7 @@ export default function BusinessContact() {
                 placeholder="Phone Number"
                 autoComplete="tel"
                 onChange={() => {
-                  
+                  setPhoneNumber(document.getElementById("phoneNumber").value);
                 }}
                 required={true}
               />
@@ -258,23 +271,44 @@ export default function BusinessContact() {
 
 
                </span>
-            
-              <button
-                type="submit"
-                disabled={isButtonDisabled}
-                className={`px-6 py-4 mt-5 text-lg justify-center text-center w-full bg-pink-600 ${
-                  isButtonDisabled
-                    ? "cursor-not-allowed disabled:opacity-75  bg-input-purple"
-                    : ""
-                } hover:shadow-lg text-white rounded transition duration-200`}
-                id="zipCodeButton"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleContact();
-                }}
-              >
-                Get My Quote
-              </button>
+               <button
+  type="submit"
+  disabled={isButtonDisabled || isLoading}
+  className={`flex items-center justify-center px-6 py-4 mt-5 text-lg w-full bg-pink-600 ${
+    (isButtonDisabled || isLoading) ? "cursor-not-allowed disabled:opacity-75 bg-input-purple" : ""
+  } hover:shadow-lg text-white rounded transition duration-200`}
+  id="zipCodeButton"
+  onClick={async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await handleContact();
+    setIsLoading(false);
+  }}
+>
+  {isLoading ? (
+    <>
+      <span className="mr-2">Processing...</span>
+      <svg
+        className="w-5 h-5 text-white animate-spin"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        {/* SVG content */}
+      </svg>
+    </>
+  ) : (
+    "Get My Quote"
+  )}
+</button>
+
+
+
+
+
+
+
+
             </div>
 
             <LinkWithQuery to="/business-type">Back</LinkWithQuery>

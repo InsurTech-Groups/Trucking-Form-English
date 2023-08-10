@@ -4,7 +4,6 @@ export const ipAddress = async (ip) => {
 
   let apiKey = process.env.REACT_APP_IP_API_KEY;
 
-  let ipAddress = localStorage.getItem('ip');
 
   const url = `https://ipgeolocation.abstractapi.com/v1/?api_key=${apiKey}`
 
